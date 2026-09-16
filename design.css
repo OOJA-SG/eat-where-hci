@@ -1,0 +1,47 @@
+@font-face{font-family:Metropolis;src:url('metropolis-bold.woff2') format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:Roboto;src:url('roboto.ttf') format('truetype');font-weight:100 900;font-display:swap}
+/* Scoped selectors deliberately override the preserved release stylesheet. */
+html:root{--cream:#f9f8f2;--paper:#fffefa;--navy:#123f35;--coral:#9b2452;--gold:#eab853;--ink:#16392f;--muted:#53665e;--line:#d8e1da;--focus:#b51e58;background:#123f35}
+html body{background:#123f35 url('singapore-lunch.jpg') center top/cover fixed no-repeat;font-family:Roboto,sans-serif;min-height:100svh}
+html body::before{content:'';position:fixed;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(9,35,25,.8),rgba(9,35,25,.18) 60%,transparent)}
+html main{position:relative;width:min(1320px,100%);padding:56px 48px;display:grid;grid-template-columns:minmax(0,520px) 1fr;gap:0 50px;margin:auto}
+html .app-intro{grid-column:1}
+html .eyebrow{font:500 14px/1.4 Roboto,sans-serif;color:#f3c9d8;letter-spacing:.08em;margin-bottom:18px}
+html h1{font:700 clamp(60px,7vw,100px)/1.04 Metropolis,sans-serif;letter-spacing:-.045em;color:#fffefa;max-width:520px}
+html .intro{font-size:20px;color:#fffefa;margin:22px 0 26px;line-height:1.5}
+html .rule{display:none}
+html .picker{grid-column:1;grid-row:2;padding:26px;background:#fffefa;border:0;border-radius:22px;box-shadow:0 14px 48px #05251c40}
+html button{font-family:Roboto,sans-serif;font-weight:700;font-size:19px;border-radius:50px;min-height:58px;width:100%;background:#123f35;border-color:#123f35}
+html button:hover{background:#23584a}
+html .venue{font-family:Metropolis,sans-serif;font-weight:700;font-size:clamp(28px,4vw,38px);overflow-wrap:anywhere}
+html #result.has-result{margin-top:22px;padding-top:22px;min-height:0}
+html .category{color:#9b2452}
+html .links a{border-radius:50px;font-size:16px;padding:10px 18px}
+html .again{background:#f4dce5;color:#16392f;border-color:transparent}
+html .again:hover{background:#eec7d6}
+html .meta{background:#edf2e9;border:0;border-radius:12px}
+html main>aside[aria-label]{grid-column:1;grid-row:3;margin:18px 0 0!important;padding:16px 20px!important;border:0!important;border-radius:16px;background:#fffefa!important;color:#345247!important;font-size:14px!important;line-height:1.5!important}
+html body.embedded .app-intro{display:block}
+@media(max-width:700px){html body{background-size:auto 460px;background-position:65% top;background-attachment:scroll}html body::before{background:linear-gradient(180deg,rgba(9,35,25,.6),rgba(9,35,25,.18) 250px,#123f35 470px)}html main{display:flex;flex-direction:column;padding:30px 20px;gap:0}html h1{font-size:64px}html .eyebrow{margin-bottom:12px}html .intro{font-size:18px;margin:16px 0 24px}html .picker{order:2;padding:22px}html main>aside[aria-label]{order:3}html .app-intro{order:1}html .links{display:flex}html .links a{flex:1;justify-content:center}html .venue{font-size:32px}}
+@media(prefers-reduced-motion:reduce){html *{transition:none!important;animation:none!important}}
+/* Mobile-first baseline: the activity comes before decorative space. */
+html main{display:flex;flex-direction:column;width:100%;max-width:560px;padding:28px 20px;gap:0}
+html .app-intro{order:1}
+html .picker{order:2;padding:22px}
+html main>aside[aria-label]{order:3}
+html h1{font-size:clamp(44px,12vw,64px);overflow-wrap:normal}
+html .intro{font-size:18px;margin:16px 0 24px}
+html .eyebrow{margin-bottom:12px}
+html .links{display:flex;flex-wrap:wrap;gap:10px}
+html .links a{flex:1 1 120px;min-height:48px;display:flex;align-items:center;justify-content:center}
+html button:focus-visible,html a:focus-visible{outline:3px solid #b51e58;outline-offset:4px}
+html body{background-size:auto 460px;background-position:65% top;background-attachment:scroll}
+html body::before{background:linear-gradient(180deg,rgba(9,35,25,.6),rgba(9,35,25,.18) 250px,#123f35 470px)}
+@media(min-width:900px){
+ html body{background-size:cover;background-position:center top;background-attachment:fixed}
+ html body::before{background:linear-gradient(90deg,rgba(9,35,25,.8),rgba(9,35,25,.18) 60%,transparent)}
+ html main{max-width:1320px;display:grid;grid-template-columns:minmax(0,520px) 1fr;padding:56px 48px;gap:0 50px}
+ html h1{font-size:clamp(64px,7vw,100px)}
+ html .intro{font-size:20px}
+ html .picker{padding:26px}
+}

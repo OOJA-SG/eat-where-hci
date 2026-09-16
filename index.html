@@ -3,6 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Eat Where? @ HCI</title>
+  <meta name="description" content="Where shall we go for lunch? Find a place around HCI with one quick pick.">
+  <link rel="stylesheet" href="design.css">
   <style>
     :root{--cream:#fff9f1;--paper:#fffdf8;--navy:#08243d;--coral:#c44835;--gold:#c9952e;--ink:#142b3d;--muted:#5f6f79;--line:#d9d1c4;--focus:#b0442f}
     *{box-sizing:border-box}
@@ -50,9 +53,9 @@
 <body>
   <main>
     <header class="app-intro">
-      <p class="eyebrow">EAS Connect 2026</p>
+      <p class="eyebrow">HCI · Lunch, sorted.</p>
       <h1>Eat Where?</h1>
-      <p class="intro">One quick suggestion from a curated list of places around HCI and along the nearby Downtown Line.</p>
+      <p class="intro">A little hungry. A little undecided?<br>Find your next lunch around HCI.</p>
       <hr class="rule">
     </header>
     <aside aria-label="Lunch advisory" style="font-size:13px;line-height:1.5;margin:0 0 14px;padding:10px 12px;border-left:3px solid #536b50;background:#f3f5ef;color:#344331"><strong>Lunch advisory</strong><br>John strongly recommends Tappee as his choice for the healthiest and most economical food at HCI.</aside>
@@ -66,7 +69,6 @@
       <button id="pick" type="button">Pick a place</button>
       <div id="result" role="status" aria-live="polite"></div>
     </section>
-    <p class="note">Curated public information, checked 5 September 2026. Price bands are broad guides. Opening, exact distance, route shelter, price and availability are not live. The picker does not ask for or store participant identifiers.</p>
   </main>
   <script>
     (function(){
@@ -97,7 +99,7 @@
         }
         result.innerHTML='<p class="status">How about…</p><h2 class="venue">'+escapeHtml(v.name)+'</h2><p class="category">'+escapeHtml(v.category)+'</p><p class="explanation">'+escapeHtml(v.explanation)+'</p><p class="area">'+escapeHtml(v.area)+'</p>'+meta+'<div class="links">'+links+'</div><button class="again" type="button" id="again">Pick again</button>';
         document.getElementById('again').addEventListener('click',choose);
-        document.getElementById('again').focus();
+        document.getElementById('again').focus({preventScroll:true});
       }
       function choose(){
         setLoading();
