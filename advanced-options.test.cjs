@@ -18,7 +18,10 @@ test('advanced mode also respects the original cuisine, venue and discovery filt
 for(const field of ['halal','childFriendly','nonSpicy']) test(field+' requires outlet evidence',()=>{
   assert.equal(filterVenues(rows,{enabled:true,[field]:true}).venues.length,0);
 });
-test('registry ships empty rather than invented certifications',()=>assert.equal(Object.keys(EVIDENCE).length,0));
+test('registry contains sourced exact-outlet MUIS records rather than inferred brand certification',()=>{
+  assert.ok(Object.keys(EVIDENCE).length>=40);
+  for(const value of Object.values(EVIDENCE)) if(value.halal){assert.equal(value.halal.authority,'MUIS');assert.ok(value.halal.certificateId);assert.equal(value.halal.validUntil,undefined);}
+});
 test('party size is planning only, not venue suitability',()=>{
   assert.equal(filterVenues(rows,{enabled:true,adults:2,children:1}).venues.length,2);
   assert.match(planningSummary({enabled:true,adults:2,children:1}),/not a seating guarantee/);
