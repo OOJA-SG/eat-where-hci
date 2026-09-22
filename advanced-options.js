@@ -7,6 +7,7 @@
     if (!fact || fact.address !== row[3] || !/^https:\/\//.test(fact.sourceUrl || '') || !/^\d{4}-\d{2}-\d{2}$/.test(fact.checkedOn || '') || fact.verified !== true) return false;
     const age=(Date.parse(now.toISOString().slice(0,10))-Date.parse(fact.checkedOn))/86400000;
     if (!Number.isFinite(age) || age < 0 || age > (key==='halal'?30:180)) return false;
+    if (key === 'highProtein') return Boolean(fact.basis && fact.dish) && Number.isFinite(fact.proteinGrams) && fact.proteinGrams >= 20;
     if (key !== 'halal') return Boolean(fact.basis);
     return fact.authority==='MUIS' && /^https:\/\/(?:halal\.)?muis\.gov\.sg\//.test(fact.sourceUrl) && Boolean(fact.certificateId) && fact.listingStatus==='listed';
   }
@@ -20,7 +21,7 @@
     return {venues: rows.filter(r => {
       if (['cuisine','venueType','discovery'].some((key,index) => o[key] && o[key] !== 'Any' && r[7+index] !== o[key])) return false;
       if (r[11] !== true || (o.area && o.area !== 'Any' && r[13] !== o.area) || (o.priceBand && o.priceBand !== 'Any' && r[12] !== o.priceBand)) return false;
-      return ['halal','childFriendly','nonSpicy'].every(key => {
+      return ['halal','childFriendly','nonSpicy','highProtein'].every(key => {
         if (!o[key]) return true;
         const fact = evidence[r[0]] && evidence[r[0]][key];
         return currentFact(fact,r,key);
@@ -38,12 +39,12 @@
     const panel = doc.getElementById('advanced-panel');
     const area = doc.getElementById('advanced-area');
     const coverage=doc.getElementById('advanced-coverage');
-    if(coverage) coverage.textContent=rows.length+' curated places in advanced search. '+['halal','childFriendly','nonSpicy'].map(key=>rows.filter(r=>currentFact(EVIDENCE[r[0]]&&EVIDENCE[r[0]][key],r,key)).length+' '+({halal:'MUIS-listed',childFriendly:'with children’s menu evidence',nonSpicy:'with explicitly non-spicy menu evidence'})[key]).join(' · ')+'. These counts overlap. Checks dated '+(expansion?expansion.checkedOn:'unavailable')+'.';
+    if(coverage) coverage.textContent=rows.length+' curated places in advanced search. '+['halal','childFriendly','nonSpicy','highProtein'].map(key=>rows.filter(r=>currentFact(EVIDENCE[r[0]]&&EVIDENCE[r[0]][key],r,key)).length+' '+({halal:'MUIS-listed',childFriendly:'with children’s menu evidence',nonSpicy:'with explicitly non-spicy menu evidence',highProtein:'with a 20g+ protein menu choice'})[key]).join(' · ')+'. These counts overlap. Checks dated '+(expansion?expansion.checkedOn:'unavailable')+'.';
     [...new Set(rows.map(r=>r[13]).concat('Bukit Panjang'))].forEach(value=>{
       const option = doc.createElement('option'); option.value=value; option.textContent=value; area.appendChild(option);
     });
     function read() {
-      return {enabled:toggle.checked,area:area.value,priceBand:doc.getElementById('advanced-price').value,adults:doc.getElementById('advanced-adults').value,children:doc.getElementById('advanced-children').value,halal:doc.getElementById('advanced-halal').checked,childFriendly:doc.getElementById('advanced-child').checked,nonSpicy:doc.getElementById('advanced-spice').checked};
+      return {enabled:toggle.checked,area:area.value,priceBand:doc.getElementById('advanced-price').value,adults:doc.getElementById('advanced-adults').value,children:doc.getElementById('advanced-children').value,halal:doc.getElementById('advanced-halal').checked,childFriendly:doc.getElementById('advanced-child').checked,nonSpicy:doc.getElementById('advanced-spice').checked,highProtein:doc.getElementById('advanced-protein').checked};
     }
     function changed() {
       panel.hidden = !toggle.checked;
@@ -64,7 +65,7 @@
       const matchCount=choices.length;
       if (choices.length>1) choices=choices.filter(r=>r[1]!==request.excludeName);
       const r=choices[Math.floor(Math.random()*choices.length)];
-      const reasons=['halal','childFriendly','nonSpicy'].filter(key=>currentFact(EVIDENCE[r[0]]&&EVIDENCE[r[0]][key],r,key)).map(key=>({label:{halal:'MUIS directory match',childFriendly:'Children’s menu',nonSpicy:'Non-spicy menu option'}[key],...EVIDENCE[r[0]][key]}));
+      const reasons=['halal','childFriendly','nonSpicy','highProtein'].filter(key=>currentFact(EVIDENCE[r[0]]&&EVIDENCE[r[0]][key],r,key)).map(key=>({label:{halal:'MUIS directory match',childFriendly:'Children’s menu',nonSpicy:'Non-spicy menu option',highProtein:'High-protein menu choice (20g+)'}[key],...EVIDENCE[r[0]][key]}));
       return {status:'ok',planning:planningSummary(o),matchCount,reasons,venue:{name:r[1],category:r[2],area:r[3],sourceLabel:r[4],sourceUrl:r[5],directionsUrl:r[6],explanation:r[10],priceBand:r[12],nearestMrt:r[13],accessNote:r[14]}};
     }};
   }

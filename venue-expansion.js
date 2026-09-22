@@ -82,6 +82,12 @@
   fact('swensens-bpp','childFriendly','https://swensens.com.sg/wp-content/uploads/2026/03/20260324_SW_GeneralMenu.pdf','Official children’s menu includes chicken strips, pasta and fish meals. Confirm availability at this outlet; no seating guarantee.');
   fact('saizeriya-hillion','childFriendly','https://www.saizeriya.com.sg/menu/','Official Singapore menu includes a dedicated kids menu. Confirm outlet availability; no seating guarantee.');
   fact('wokhey-bpp','nonSpicy','https://pick-up.wokhey.sg/wokhey/location/15/department/5/menu','Bukit Panjang Plaza ordering menu: Egg Fried Rice with Grilled Chicken defaults to No Chilli. Leave chilli add-ons unselected and confirm preparation. Adults can request chilli separately.');
+  for(const id of ['subway-bpp','subway-hillion']) {
+    fact(id,'highProtein','https://subwayisfresh.com.sg/menu_item/roasted-chicken-breast/','Roasted Chicken Breast sub: 24.8g protein per listed 225g serving, with the specified vegetables on multigrain bread. Official Singapore nutrition information. Confirm this recipe and availability at the outlet.');
+    Object.assign(evidence[id].highProtein,{dish:'Roasted Chicken Breast sub (225g standard serving)',proteinGrams:24.8});
+  }
+  fact('stuffd-hillion','highProtein','https://www.stuffd.com/sg/nutrition/','Chicken kebab with 10-inch tortilla: the official Singapore calculator lists 16.75g protein for the chicken portion plus 5g for the tortilla (21.75g before vegetables and sauces). Calculated ingredient total, not a measured finished meal. Confirm portion and availability at the outlet.');
+  Object.assign(evidence['stuffd-hillion'].highProtein,{dish:'Chicken kebab with 10-inch tortilla',proteinGrams:21.75});
   const api={checkedOn,venues,evidence};
   if(typeof module!=='undefined'&&module.exports) module.exports=api;
   else root.EatWhereExpansion=api;
