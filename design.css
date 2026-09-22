@@ -1,4 +1,22 @@
 @font-face{font-family:Metropolis;src:url('metropolis-bold.woff2') format('woff2');font-weight:700;font-display:swap}
+/* Optional advanced preview follows the existing forest/cream palette. */
+html .advanced-switch{margin:0 0 18px}
+html .advanced-switch label{display:flex;align-items:center;gap:9px;flex-wrap:wrap;font-size:16px;min-height:44px}
+html .advanced-switch p,html .advanced-help{font-size:13px;color:#53665e;line-height:1.5;margin:4px 0 12px}
+html .preview-tag{font-size:11px;letter-spacing:.04em;text-transform:uppercase;background:#f4dce5;color:#792040;padding:3px 8px;border-radius:20px}
+html .advanced-panel{border-top:1px solid #d8e1da;padding-top:18px;margin-bottom:22px}
+html .advanced-panel[hidden]{display:none}
+html .advanced-heading{font-size:21px;font-weight:700;margin:0 0 6px}
+html .advanced-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+html .advanced-grid input,html .advanced-grid select{display:block;width:100%;min-height:46px;border:1px solid #899d91;border-radius:10px;padding:10px;margin-top:6px;font:inherit;background:#fff;color:#16392f}
+html .advanced-grid label{font-size:13px}
+html .advanced-switch input,html .advanced-checks input{width:20px;height:20px;accent-color:#123f35;flex-shrink:0}
+html .advanced-checks{margin:18px 0 8px;border:1px solid #d8e1da;border-radius:12px;padding:10px 12px}
+html .advanced-checks legend{font-size:13px;color:#53665e;padding:0 5px}
+html .advanced-checks label{display:flex;gap:9px;align-items:center;min-height:44px;font-size:14px}
+html .advanced-pending{font-size:13px;line-height:1.5;background:#f8edd3;color:#674914;border-radius:10px;padding:12px}
+html input:focus-visible,html select:focus-visible{outline:3px solid #b51e58;outline-offset:3px}
+@media(max-width:360px){html .advanced-grid{grid-template-columns:1fr}}
 @font-face{font-family:Roboto;src:url('roboto.ttf') format('truetype');font-weight:100 900;font-display:swap}
 /* Scoped selectors deliberately override the preserved release stylesheet. */
 html:root{--cream:#f9f8f2;--paper:#fffefa;--navy:#123f35;--coral:#9b2452;--gold:#eab853;--ink:#16392f;--muted:#53665e;--line:#d8e1da;--focus:#b51e58;background:#123f35}
